@@ -47,9 +47,8 @@ export class F1Component implements AfterViewInit {
   }
   async getData() {
     try {
-      this.data = await this.tribuService.getDatos(2);
+      this.data = await this.tribuService.getDatos();
       this.isLoading = false;
-      // Asignar this.data a ELEMENT_DATA
       this.ELEMENT_DATA = this.data;
       // Actualizar dataSource con los nuevos datos
       this.dataSource.data = this.ELEMENT_DATA;
@@ -71,10 +70,8 @@ export class F1Component implements AfterViewInit {
     this.getData();
   }
 
-
   // Función que se ejecuta cuando cambia el valor del campo de búsqueda
   onSearchChange(event: any) {
-    // Actualiza el valor de búsqueda y filtra la tabla
     this.searchValue = event.target.value;
     this.applyFilter();
   }
@@ -94,17 +91,12 @@ export class F1Component implements AfterViewInit {
     const dialogRef = this.dialog.open(ModalDeleteComponent, {
       data: { productName: element.name }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log(element)
         let res = this.tribuService.deleteDatos(element.id);
-        console.log("🚀 ~ F1Component ~ dialogRef.afterClosed ~ res:", res)
-
-        // El usuario confirmó la eliminación, realiza la acción de eliminación aquí
-      } else {
-        // El usuario canceló la eliminación
-      }
+        this.dataSource.data = this.dataSource.data.filter(item => item.id !== element.id);
+      } 
     });
   }
 }

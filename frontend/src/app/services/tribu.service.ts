@@ -7,18 +7,28 @@ import { informacion } from '../interface/informacion.interface';
     providedIn: 'root'
 })
 export class TribuService {
+    private authorId: number; // Variable privada para almacenar el authorId
 
-    private apiUrl = 'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products';
-    private apiUrlVerif = 'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products/verification';
+    apiUrl = 'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products';
+    apiUrlVerif = 'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products/verification';
     updateData: any = {};
-    constructor() { }
+    constructor() {
+        // Verifica si localStorage está disponible antes de usarlo
+        if (typeof localStorage !== 'undefined') {
+            this.authorId = this.getStoredAuthorId() ?? this.generateAuthorId();
+            this.storeAuthorId(this.authorId);
+        } else {
+            // Si localStorage no está disponible, genera un authorId aleatorio
+            this.authorId = this.generateAuthorId();
+        }
 
-    async getDatos(test: any): Promise<any> {
+    }
+
+    async getDatos(): Promise<any> {
         try {
             //const authorId = this.generateAuthorId();
-            const authorId = test;
             const headers = {
-                'authorid': authorId.toString()
+                'authorid': this.authorId.toString()
             };
             const response = await axios.get(this.apiUrl, { headers });
             return response.data;
@@ -39,9 +49,8 @@ export class TribuService {
     }
     async postDatos(data: informacion): Promise<any> {
         try {
-            const authorId = 2;
             const headers = {
-                'authorid': authorId.toString()
+                'authorid': this.authorId.toString()
             };
             const resVerification = await this.verificationId(data.id)
             if (resVerification) {
@@ -59,10 +68,8 @@ export class TribuService {
     }
     async deleteDatos(id: string): Promise<any> {
         try {
-            //const authorId = this.generateAuthorId();
-            const authorId = 2;
             const headers = {
-                'authorid': authorId.toString()
+                'authorid': this.authorId.toString()
             };
             const url = `${this.apiUrl}?id=${id}`
             const response = await axios.delete(url, { headers });
@@ -75,11 +82,10 @@ export class TribuService {
     }
 
     async updateDatos(data: informacion) {
-        console.log("🚀 ~ TribuService ~ updateDatos ~ data:", data)
         try {
             const authorId = 2;
             const headers = {
-                'authorid': authorId.toString()
+                'authorid': this.authorId.toString()
             };
             const url = `${this.apiUrl}?id=${data.id}`
             console.log("🚀 ~ TribuService ~ updateDatos ~ url:", url)
@@ -91,8 +97,23 @@ export class TribuService {
             throw error;
         }
     }
-    private generateAuthorId(): number {
+
+    generateAuthorId(): number {
         // Genera un número entero aleatorio entre 1 y 500
         return Math.floor(Math.random() * 500) + 1;
+    }
+
+    private storeAuthorId(authorId: number): void {
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('authorId', authorId.toString());
+        }
+    }
+
+    private getStoredAuthorId(): number | null {
+        if (typeof localStorage !== 'undefined') {
+            const storedAuthorId = localStorage.getItem('authorId');
+            return storedAuthorId ? parseInt(storedAuthorId, 10) : null;
+        }
+        return null;
     }
 }

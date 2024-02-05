@@ -23,14 +23,15 @@
                     <mat-label>Descripción</mat-label>
                     <input matInput id="description" name="description" [(ngModel)]="formData.description" required
                         minlength="10" maxlength="200" #description="ngModel">
+                    <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
+                        <span *ngIf="description.errors?.['required']">Descripción is required</span>
+                        <span *ngIf="description.errors?.['minlength']">Descripción must be at least 10 characters
+                            long</span>
+                        <span *ngIf="description.errors?.['maxlength']">Descripción cannot exceed 200
+                            characters</span>
+                    </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
-                    <span *ngIf="description.errors?.['required']">Descripción is required</span>
-                    <span *ngIf="description.errors?.['minlength']">Descripción must be at least 10 characters
-                        long</span>
-                    <span *ngIf="description.errors?.['maxlength']">Descripción cannot exceed 200
-                        characters</span>
-                </mat-error>
+
 
 
                 <label for="dateRelease">Fecha de Liberación:</label>
@@ -47,15 +48,16 @@
                             <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
                         </mat-datepicker-actions>
                     </mat-datepicker>
+                    <mat-error *ngIf="dateRelease.invalid && (dateRelease.dirty || dateRelease.touched)">
+                        <span *ngIf="dateRelease.errors?.['required']">Fecha de Liberación is required</span>
+                        <span *ngIf="dateRelease.errors?.['minlength']">Fecha de Liberación must be equal to or
+                            greater
+                            than today</span>
+                    </mat-error>
                 </mat-form-field>
 
 
-                <mat-error *ngIf="dateRelease.invalid && (dateRelease.dirty || dateRelease.touched)">
-                    <span *ngIf="dateRelease.errors?.['required']">Fecha de Liberación is required</span>
-                    <span *ngIf="dateRelease.errors?.['minlength']">Fecha de Liberación must be equal to or
-                        greater
-                        than today</span>
-                </mat-error>
+
 
             </div>
             <div style="grid-column: 2; display:inherit ">
@@ -78,14 +80,15 @@
                     <mat-label>Logo</mat-label>
                     <input matInput type="text" id="logo" name="logo" [(ngModel)]="formData.logo" required required
                         #logoInput="ngModel">
+                    <mat-error *ngIf="logoInput.errors?.['required']">logo is required</mat-error>
                 </mat-form-field>
 
                 <label for="date_revision">Fecha de Revisión:</label>
                 <mat-form-field class="example-form-field">
                     <mat-label>Fecha de Revisión</mat-label>
                     <input matInput [matDatepicker]="datepicker" type="text" id="date_revision" name="date_revision"
-                        [(ngModel)]="formData.date_revision" required [min]="formData.date_revision | date: 'yyyy-MM-dd'"
-                        #date_revision="ngModel">
+                        [(ngModel)]="formData.date_revision" required
+                        [min]="formData.date_revision | date: 'yyyy-MM-dd'" #date_revision="ngModel">
                     <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
                     <mat-datepicker #datepicker>
                         <mat-datepicker-actions>
@@ -93,12 +96,13 @@
                             <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
                         </mat-datepicker-actions>
                     </mat-datepicker>
+                    <mat-error *ngIf="date_revision.invalid && (date_revision.dirty || date_revision.touched)">
+                        <span *ngIf="date_revision.errors?.['required']">Fecha de Revisión is required</span>
+                        <span *ngIf="date_revision.errors?.['minlength']">Fecha de Revisión must be exactly one year
+                            after Fecha de Liberación</span>
+                    </mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="date_revision.invalid && (date_revision.dirty || date_revision.touched)">
-                    <span *ngIf="date_revision.errors?.['required']">Fecha de Revisión is required</span>
-                    <span *ngIf="date_revision.errors?.['minlength']">Fecha de Revisión must be exactly one year
-                        after Fecha de Liberación</span>
-                </mat-error>
+
 
             </div>
         </form>
