@@ -17,25 +17,18 @@
   }
   
   /* Estilos generales para los botones */
-  .button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-  }
+
   
   /* Estilo específico para el botón Cancelar */
   .cancel-button {
     background-color: #ccc; /* Gris */
     color: #333;
   }
-  
-  /* Estilo específico para el botón Confirmar */
+
   .confirm-button {
-    background-color: #ffcc00; /* Amarillo */
+    background-color: #ffcc00; 
     color: #333;
-    margin-left: 10px; /* Espacio entre botones */
+    margin-left: 10px; 
   }
   
   /* Asegurarse que el botón Confirmar tenga un aspecto más prominente */

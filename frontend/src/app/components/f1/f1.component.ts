@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ModalDeleteComponent } from '../../common/modal-delete/modal-delete.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-f1',
@@ -32,16 +33,22 @@ export class F1Component implements AfterViewInit {
   data: informacion[] = []; // Variable para almacenar los datos recibidos
   ELEMENT_DATA: informacion[] = [];
   searchValue: string = ''; // Variable para almacenar el valor de búsqueda
+  isLoading: boolean = true; // Variable para controlar si se está cargando la información
+  skeletonRows = Array(5).fill(0); // Array con 5 elementos para representar 5 filas en el skeleton screen
 
-  constructor(private tribuService: TribuService, private dialog: MatDialog) {
+  constructor(private tribuService: TribuService, private dialog: MatDialog, private router: Router) {
     this.getData();
     this.dataSource = new MatTableDataSource<informacion>(this.ELEMENT_DATA); // Inicializa dataSource aquí
   }
 
+
+  navigateTo(param: string) {
+    this.router.navigate([param]);
+  }
   async getData() {
     try {
       this.data = await this.tribuService.getDatos(2);
-      console.log("Datos recibidos:", this.data);
+      this.isLoading = false;
       // Asignar this.data a ELEMENT_DATA
       this.ELEMENT_DATA = this.data;
       // Actualizar dataSource con los nuevos datos
@@ -77,15 +84,11 @@ export class F1Component implements AfterViewInit {
     this.dataSource.filter = this.searchValue.trim().toLowerCase();
   }
 
-  onEdit(id: any) {
-    // Lógica para editar el elemento con el ID proporcionado
-    console.log('Editar elemento con ID:', id);
+  onEdit(element: informacion) {
+    this.tribuService.updateData = element;
+    this.router.navigate(['/f2', { id: element.id }]);
   }
 
-  onDelete(id: any) {
-    // Lógica para eliminar el elemento con el ID proporcionado
-    console.log('Eliminar elemento con ID:', id);
-  }
 
   openDeleteConfirmationDialog(element: informacion) {
     const dialogRef = this.dialog.open(ModalDeleteComponent, {
@@ -97,7 +100,7 @@ export class F1Component implements AfterViewInit {
         console.log(element)
         let res = this.tribuService.deleteDatos(element.id);
         console.log("🚀 ~ F1Component ~ dialogRef.afterClosed ~ res:", res)
-        
+
         // El usuario confirmó la eliminación, realiza la acción de eliminación aquí
       } else {
         // El usuario canceló la eliminación

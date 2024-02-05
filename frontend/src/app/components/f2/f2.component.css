@@ -31,16 +31,13 @@
     display: inherit;
 }
 
-.btnColorGris {
-    background: #ccc;
-    border-radius: 5px 5px 5px 5px;
-
+.titleForm{
+    margin-top: 3%;
 }
 
 .btnColorYellow {
-    background: #ffdf00;
-    border-color: #ffdf00;
-    border-radius: 5px 5px 5px 5px;
+    background-color: #ffcc00; 
+    color: #333;
 
 }
 

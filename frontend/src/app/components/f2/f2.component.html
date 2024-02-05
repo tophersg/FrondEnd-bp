@@ -1,7 +1,7 @@
 <div class="centered-container">
     <div class="card-body-form">
         <div class="justify-ca-center">
-            <h1 class="title">Formulario de registro</h1>
+            <h1 class="title titleForm">Formulario de registro</h1>
         </div>
         <hr>
 
@@ -11,7 +11,7 @@
                 <mat-form-field class="example-full-width">
                     <mat-label>Id</mat-label>
                     <input matInput type="text" id="id" name="id" [(ngModel)]="formData.id" required minlength="3"
-                        maxlength="10" #idInput="ngModel">
+                        maxlength="10" #idInput="ngModel" [disabled]="isUpdating">
                     <mat-error *ngIf="idInput.errors?.['required']">ID is required</mat-error>
                     <mat-error *ngIf="idInput.errors?.['minlength']">ID must be at least 3 characters
                         long</mat-error>
@@ -37,9 +37,9 @@
 
                 <mat-form-field class="example-form-field">
                     <mat-label>Fecha de Liberación</mat-label>
-                    <input matInput [matDatepicker]="datepickers" type="date" id="dateRelease" name="dateRelease"
-                        [(ngModel)]="formData.date_release" required [min]="today" #dateRelease="ngModel">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <input matInput [matDatepicker]="datepickers" type="text" id="dateRelease" name="dateRelease"
+                        [(ngModel)]="formData.date_release" required [min]="today | date: 'yyyy-MM-dd'"
+                        #dateRelease="ngModel">
                     <mat-datepicker-toggle matIconSuffix [for]="datepickers"></mat-datepicker-toggle>
                     <mat-datepicker #datepickers>
                         <mat-datepicker-actions>
@@ -80,13 +80,12 @@
                         #logoInput="ngModel">
                 </mat-form-field>
 
-                <label for="dateRevision">Fecha de Revisión:</label>
+                <label for="date_revision">Fecha de Revisión:</label>
                 <mat-form-field class="example-form-field">
                     <mat-label>Fecha de Revisión</mat-label>
-                    <input matInput [matDatepicker]="datepicker" matInput type="date" id="dateRevision"
-                        name="dateRevision" [(ngModel)]="formData.date_revision" required [min]="formData.date_release"
-                        #dateRevision="ngModel">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <input matInput [matDatepicker]="datepicker" type="text" id="date_revision" name="date_revision"
+                        [(ngModel)]="formData.date_revision" required [min]="formData.date_revision | date: 'yyyy-MM-dd'"
+                        #date_revision="ngModel">
                     <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
                     <mat-datepicker #datepicker>
                         <mat-datepicker-actions>
@@ -95,18 +94,17 @@
                         </mat-datepicker-actions>
                     </mat-datepicker>
                 </mat-form-field>
-                <mat-error *ngIf="dateRevision.invalid && (dateRevision.dirty || dateRevision.touched)">
-                    <span *ngIf="dateRevision.errors?.['required']">Fecha de Revisión is required</span>
-                    <span *ngIf="dateRevision.errors?.['minlength']">Fecha de Revisión must be exactly one year
+                <mat-error *ngIf="date_revision.invalid && (date_revision.dirty || date_revision.touched)">
+                    <span *ngIf="date_revision.errors?.['required']">Fecha de Revisión is required</span>
+                    <span *ngIf="date_revision.errors?.['minlength']">Fecha de Revisión must be exactly one year
                         after Fecha de Liberación</span>
                 </mat-error>
 
             </div>
-            
         </form>
         <div class="space-around-arou " style="padding: 20px;">
-            <button class="btnForm btnColorGris" type="button" (click)="onReset()">Reiniciar</button>
-            <button class="btnForm btnColorYellow" type="button" (click)="onSubmit()">Agregar</button>
+            <button class="button cancel-button" type="button" (click)="onReset()">Reiniciar</button>
+            <button class="button btnColorYellow" type="button" (click)="onSubmit()">Enviar</button>
 
         </div>
     </div>

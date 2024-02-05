@@ -1,24 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/sweetalert2/src/sweetalert2.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
 
-.space-around-arou{
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.space-around-arou {
     display: flex;
     justify-content: space-around;
 }
 
-.justify-content-center{
+.justify-content-center {
     display: flex;
     justify-content: center;
 }
 
-.justify-ca-center{
+.justify-ca-center {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
 }
-.title{
+
+.title {
     font-size: 33px !important;
 
 }
+
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cancel-button {
+    background-color: #ccc; /* Gris */
+    color: #333;
+  }

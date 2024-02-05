@@ -9,12 +9,47 @@
     color: #007bff;
     /* Cambia el color del ícono al pasar sobre él */
 }
-.display-end{
+
+.display-end {
     display: flex;
     justify-content: end;
 }
-.btnColor{
+
+.btnColor {
     background: #ffdf00;
     border-color: #ffdf00;
     color: black;
+}
+
+.imgLogo {
+    margin-top: 5px;
+    width: 100px;
+    height: 70px;
+}
+
+td {
+    height: 82px;
+}
+
+
+.skeleton-container {
+    background-color: #f2f2f2;
+    padding: 16px;
+}
+
+.skeleton-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.skeleton-cell {
+    width: 100px;
+    /* Ancho de cada celda, ajusta según tu diseño */
+    height: 16px;
+    /* Altura de cada celda, ajusta según tu diseño */
+    background-color: #ccc;
+    /* Color de fondo de las celdas */
+    margin-right: 8px;
+    /* Espacio entre celdas, ajusta según tu diseño */
 }
