@@ -1,0 +1,20 @@
+.space-around-arou {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selectet:hover {
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el ícono */
+    color: #007bff;
+    /* Cambia el color del ícono al pasar sobre él */
+}
+.display-end{
+    display: flex;
+    justify-content: end;
+}
+.btnColor{
+    background: #ffdf00;
+    border-color: #ffdf00;
+    color: black;
+}

@@ -1,0 +1,16 @@
+<div class="dialog-container">
+  <div class="confirmation-message">
+    <div class="modal-header">
+      <h2  mat-dialog-title>¿Estás seguro de eliminar el producto "{{ data.productName }}"?</h2>
+
+    </div>
+    <div mat-dialog-content>
+      <!-- Contenido adicional si es necesario -->
+    </div>
+    <hr>
+    <div class="modal-footer" mat-dialog-actions>
+      <button class="button cancel-button " mat-button (click)="onCancelClick()">Cancelar</button>
+      <button class="button confirm-button" mat-button color="warn" (click)="onConfirmClick()">Confirmar</button>
+    </div>
+  </div>
+</div>

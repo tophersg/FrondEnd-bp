@@ -1,0 +1,113 @@
+<div class="centered-container">
+    <div class="card-body-form">
+        <div class="justify-ca-center">
+            <h1 class="title">Formulario de registro</h1>
+        </div>
+        <hr>
+
+        <form (ngSubmit)="onSubmit()" class=" form-card">
+            <div class="div-form">
+                <label for="id" class="">ID</label>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Id</mat-label>
+                    <input matInput type="text" id="id" name="id" [(ngModel)]="formData.id" required minlength="3"
+                        maxlength="10" #idInput="ngModel">
+                    <mat-error *ngIf="idInput.errors?.['required']">ID is required</mat-error>
+                    <mat-error *ngIf="idInput.errors?.['minlength']">ID must be at least 3 characters
+                        long</mat-error>
+                    <mat-error *ngIf="idInput.errors?.['maxlength']">ID cannot exceed 10 characters</mat-error>
+                </mat-form-field>
+
+                <label for="description">Descripción:</label>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Descripción</mat-label>
+                    <input matInput id="description" name="description" [(ngModel)]="formData.description" required
+                        minlength="10" maxlength="200" #description="ngModel">
+                </mat-form-field>
+                <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
+                    <span *ngIf="description.errors?.['required']">Descripción is required</span>
+                    <span *ngIf="description.errors?.['minlength']">Descripción must be at least 10 characters
+                        long</span>
+                    <span *ngIf="description.errors?.['maxlength']">Descripción cannot exceed 200
+                        characters</span>
+                </mat-error>
+
+
+                <label for="dateRelease">Fecha de Liberación:</label>
+
+                <mat-form-field class="example-form-field">
+                    <mat-label>Fecha de Liberación</mat-label>
+                    <input matInput [matDatepicker]="datepickers" type="date" id="dateRelease" name="dateRelease"
+                        [(ngModel)]="formData.date_release" required [min]="today" #dateRelease="ngModel">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="datepickers"></mat-datepicker-toggle>
+                    <mat-datepicker #datepickers>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                </mat-form-field>
+
+
+                <mat-error *ngIf="dateRelease.invalid && (dateRelease.dirty || dateRelease.touched)">
+                    <span *ngIf="dateRelease.errors?.['required']">Fecha de Liberación is required</span>
+                    <span *ngIf="dateRelease.errors?.['minlength']">Fecha de Liberación must be equal to or
+                        greater
+                        than today</span>
+                </mat-error>
+
+            </div>
+            <div style="grid-column: 2; display:inherit ">
+
+                <label for="name">Nombre:</label>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput type="text" id="name" name="name" [(ngModel)]="formData.name" required minlength="5"
+                        maxlength="100" #nameInput="ngModel">
+                    <mat-error *ngIf="nameInput.errors?.['required']">Nombre is required</mat-error>
+                    <mat-error *ngIf="nameInput.errors?.['minlength']">Nombre must be at least 5 characters
+                        long</mat-error>
+                    <mat-error *ngIf="nameInput.errors?.['maxlength']">Nombre cannot exceed 100
+                        characters</mat-error>
+                </mat-form-field>
+
+
+                <label for="logo">Logo:</label>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Logo</mat-label>
+                    <input matInput type="text" id="logo" name="logo" [(ngModel)]="formData.logo" required required
+                        #logoInput="ngModel">
+                </mat-form-field>
+
+                <label for="dateRevision">Fecha de Revisión:</label>
+                <mat-form-field class="example-form-field">
+                    <mat-label>Fecha de Revisión</mat-label>
+                    <input matInput [matDatepicker]="datepicker" matInput type="date" id="dateRevision"
+                        name="dateRevision" [(ngModel)]="formData.date_revision" required [min]="formData.date_release"
+                        #dateRevision="ngModel">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="dateRevision.invalid && (dateRevision.dirty || dateRevision.touched)">
+                    <span *ngIf="dateRevision.errors?.['required']">Fecha de Revisión is required</span>
+                    <span *ngIf="dateRevision.errors?.['minlength']">Fecha de Revisión must be exactly one year
+                        after Fecha de Liberación</span>
+                </mat-error>
+
+            </div>
+            
+        </form>
+        <div class="space-around-arou " style="padding: 20px;">
+            <button class="btnForm btnColorGris" type="button" (click)="onReset()">Reiniciar</button>
+            <button class="btnForm btnColorYellow" type="button" (click)="onSubmit()">Agregar</button>
+
+        </div>
+    </div>
+</div>

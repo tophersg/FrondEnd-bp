@@ -1,0 +1,55 @@
+.card-body-form {
+
+    background: #fff;
+    border-radius: 10px 10px 10px 10px;
+    width: 60%;
+}
+
+
+
+.display-grid {
+    display: grid;
+}
+
+.centered-container {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+}
+
+.form-card {
+    display: grid;
+    gap: 20px;
+    padding: 20px
+}
+
+.div-form {
+    grid-column: 1;
+    display: inherit;
+}
+
+.btnColorGris {
+    background: #ccc;
+    border-radius: 5px 5px 5px 5px;
+
+}
+
+.btnColorYellow {
+    background: #ffdf00;
+    border-color: #ffdf00;
+    border-radius: 5px 5px 5px 5px;
+
+}
+
+.btnForm {
+    width: 100px;
+    height: 50px;
+    font-weight: bold;
+}
+
+.btnForm:hover {
+    cursor: pointer;
+}
